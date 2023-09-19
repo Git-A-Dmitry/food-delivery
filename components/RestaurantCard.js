@@ -3,9 +3,11 @@ import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
 import { themeColors } from '../theme';
 import * as Icon from 'react-native-feather';
 import { useNavigation } from '@react-navigation/native';
+import { urlFor } from '../sanity';
 
 export default function RestaurantCard({ item }) {
   const navigation = useNavigation();
+  // console.log(item);
 
   return (
     <TouchableWithoutFeedback onPress={() => navigation.navigate('Restaurant', { ...item })}>
@@ -15,7 +17,7 @@ export default function RestaurantCard({ item }) {
       >
         <Image
           className='h-36 w-64 rounded-t-3xl'
-          source={item.image}
+          source={{ uri: urlFor(item.image).url() }}
         />
         <View className='px-3 pb-4 space-y-2'>
           <Text className='text-lg font-bold pt-2'>{item.name}</Text>
@@ -28,7 +30,7 @@ export default function RestaurantCard({ item }) {
             <Text>
               <Text className='text-green-700'>{item.stars}</Text>
               <Text className='text-gray-700'>
-                ({item.reviews} review) • <Text className='font-semibold'>{item.category}</Text>
+                ({item.reviews} review) • <Text className='font-semibold'>{item?.type?.name}</Text>
               </Text>
             </Text>
           </View>

@@ -9,7 +9,7 @@ export default function OrderScreen() {
     setTimeout(() => {
       // move to delivery screen
       navigation.navigate('Delivery');
-    }, 3000);
+    }, 5000);
   }, []);
 
   return (
@@ -18,6 +18,7 @@ export default function OrderScreen() {
         source={require('../assets/images/delivery.gif')}
         className='h-80 w-80'
       />
+      <Text className='mt-4 text-lg text-gray-700 font-semibold'>Please wait a second...</Text>
     </View>
   );
 }
