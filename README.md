@@ -1,3 +1,3 @@
 ## food-delivery app
 
-![HomeScreen](./assets/readme-img/homescreen.PNG)
+![HomeScreen](./assets/readme-img/homescreen.png)
