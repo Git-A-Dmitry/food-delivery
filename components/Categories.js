@@ -1,11 +1,10 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
 import React, { useState, useEffect } from 'react';
 // import { categories } from '../constants';
-// import logoImg from '../assets/adaptive-icon.png';
 import { getCategories } from '../api';
 import { urlFor } from '../sanity';
 
-export default function Categories() {
+export default function Categories({ onCategorySelect }) {
   const [activeCategory, setActiveCategory] = useState(null);
   const [categories, setCategories] = useState([]);
 
@@ -26,7 +25,7 @@ export default function Categories() {
       >
         {categories.map((category, index) => {
           let isActive = category._id == activeCategory;
-          let btnClass = isActive ? ' bg-gray-600' : ' bg-gray-200';
+          let btnClass = isActive ? ' bg-gray-400' : ' bg-gray-200';
           let textClass = isActive ? ' font-semibold text-gray-800' : ' text-gray-500';
 
           return (
@@ -35,11 +34,14 @@ export default function Categories() {
               className='flex justify-center items-center mr-5'
             >
               <TouchableOpacity
-                onPress={() => setActiveCategory(category._id)}
-                className={'p-1 rounded-full shadow-slate-50 bg-gray-200 ' + btnClass}
+                onPress={() => {
+                  setActiveCategory(category._id);
+                  onCategorySelect(category.name);
+                }}
+                className={'p-1 rounded-full shadow-md bg-gray-200 ' + btnClass}
               >
                 <Image
-                  style={{ width: 45, height: 45 }}
+                  style={{ width: 50, height: 50 }}
                   // source={category.image}
                   source={{ uri: urlFor(category.image).url() }}
                 />

@@ -13,6 +13,7 @@ import { getFeaturedRestaurants } from '../api';
 export default function HomeScreen() {
   const [featuredRestaurants, setFeaturedRestaurants] = useState([]);
   const [searchInput, setSearchInput] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
     getFeaturedRestaurants().then((data) => {
@@ -20,6 +21,23 @@ export default function HomeScreen() {
       setFeaturedRestaurants(data);
     });
   }, []);
+
+  const filterRestaurantsByCategoryAndSearch = () => {
+    // Filter featured restaurants based on the search input
+    // Filtering by restaurant
+    // const filteredRestaurants = featuredRestaurants.filter((item) => item.restaurants.some((restaurant) => restaurant.name.toLowerCase().includes(searchInput.toLowerCase())));
+
+    // Filtering by dishes
+    const filteredRestaurants = featuredRestaurants.filter((item) => item.restaurants.some((restaurant) => restaurant.dishes.some((dish) => dish.description.toLowerCase().includes(searchInput.toLowerCase()))));
+
+    // If "All" category is selected (or no category is selected), return the filtered results
+    if (!selectedCategory || selectedCategory.toLowerCase() === 'all') {
+      return filteredRestaurants;
+    }
+
+    // Otherwise, further filter based on the selected category
+    return filteredRestaurants.filter((item) => item.restaurants.some((restaurant) => restaurant.type.name === selectedCategory));
+  };
 
   return (
     <SafeAreaView className='bg-white'>
@@ -34,7 +52,7 @@ export default function HomeScreen() {
             stroke='gray'
           />
           <TextInput
-            placeholder='Search for dishes'
+            placeholder='Search'
             className='flex-1 ml-2'
             value={searchInput}
             onChangeText={(text) => setSearchInput(text)}
@@ -67,24 +85,19 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 20 }}
       >
-        <Categories />
+        <Categories onCategorySelect={(categoryName) => setSelectedCategory(categoryName)} />
 
         <View className='mt-5'>
-          {/* {[featured, featured, featured].map((item, index) => { */}
-          {featuredRestaurants
-            // .filter((item) => item.description.toLowerCase().includes(searchInput.toLowerCase()))
-            .filter((item) => item.restaurants.some((restaurant) => restaurant.dishes.some((dish) => dish.description.toLowerCase().includes(searchInput.toLowerCase()))))
-
-            .map((item, index) => {
-              return (
-                <FeatureRow
-                  key={index}
-                  title={item.name}
-                  restaurants={item.restaurants}
-                  description={item.description}
-                />
-              );
-            })}
+          {filterRestaurantsByCategoryAndSearch().map((item, index) => {
+            return (
+              <FeatureRow
+                key={index}
+                title={item.name}
+                restaurants={item.restaurants}
+                description={item.description}
+              />
+            );
+          })}
         </View>
       </ScrollView>
     </SafeAreaView>

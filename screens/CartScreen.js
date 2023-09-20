@@ -13,10 +13,9 @@ export default function CartScreen() {
   // const restaurant = featured.restaurants[0];
   const restaurant = useSelector(selectRestaurant);
   const navigation = useNavigation();
+  const [groupedItems, setGroupedItems] = useState({});
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
-
-  const [groupedItems, setGroupedItems] = useState({});
 
   const deliveryFee = 4;
 
@@ -24,10 +23,12 @@ export default function CartScreen() {
 
   useEffect(() => {
     const items = cartItems.reduce((group, item) => {
-      if (group[item.id]) {
-        group[item.id].push(item);
+      const itemName = item.name;
+
+      if (group[itemName]) {
+        group[itemName].push(item);
       } else {
-        group[item.id] = [item];
+        group[itemName] = [item];
       }
       return group;
     }, {});
@@ -83,7 +84,6 @@ export default function CartScreen() {
         contentContainerStyle={{ paddingBottom: 50 }}
         className='bg-white pt-5'
       >
-        {/* {restaurant.dishes.map((dish, index) => { */}
         {Object.entries(groupedItems).map(([key, items]) => {
           let dish = items[0];
           return (
@@ -105,7 +105,7 @@ export default function CartScreen() {
               <Text className='font-semibold text-base'>{dish.price}</Text>
 
               <TouchableOpacity
-                onPress={() => dispatch(removeFromCart({ id: dish.id }))}
+                onPress={() => dispatch(removeFromCart({ id: dish._id }))}
                 className='p-1 rounded-full'
                 style={{ backgroundColor: themeColors.bgColor(1) }}
               >
