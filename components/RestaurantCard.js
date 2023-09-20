@@ -12,7 +12,7 @@ export default function RestaurantCard({ item }) {
   return (
     <TouchableWithoutFeedback onPress={() => navigation.navigate('Restaurant', { ...item })}>
       <View
-        style={{ shadowColor: themeColors.bgColor(0.2), shadowRadius: 7 }}
+        // style={{ shadowColor: themeColors.bgColor(0.2), shadowRadius: 7 }}
         className='mr-6 bg-white rounded-3xl shadow-lg'
       >
         <Image
@@ -20,7 +20,7 @@ export default function RestaurantCard({ item }) {
           source={{ uri: urlFor(item.image).url() }}
         />
         <View className='px-3 pb-4 space-y-2'>
-          <Text className='text-lg font-bold pt-2'>{item.name}</Text>
+          <Text className='text-lg  font-bold pt-2'>{item.name}</Text>
 
           <View className='flex-row items-center space-x-1'>
             <Image
@@ -41,7 +41,8 @@ export default function RestaurantCard({ item }) {
               width='15'
               height='15'
             />
-            <Text className='text-gray-700 text-xs'>Nearby • {item.address}</Text>
+            {/* <Text className='text-gray-700 text-xs'>Nearby • {item.address}</Text> */}
+            <Text className='text-gray-700 text-xs'>{item.address}</Text>
           </View>
         </View>
       </View>

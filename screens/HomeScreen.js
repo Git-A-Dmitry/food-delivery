@@ -52,7 +52,7 @@ export default function HomeScreen() {
             stroke='gray'
           />
           <TextInput
-            placeholder='Search'
+            placeholder='Search by dish'
             className='flex-1 ml-2'
             value={searchInput}
             onChangeText={(text) => setSearchInput(text)}

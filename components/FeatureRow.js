@@ -8,18 +8,18 @@ export default function FeatureRow({ title, description, restaurants }) {
     <View>
       <View className='flex-row justify-between items-center px-4'>
         <View>
-          <Text className='font-bold text-lg'>{title}</Text>
+          <Text className='font-bold text-lg text-[#334155]'>{title}</Text>
           <Text className='text-gray-500 text-xs'>{description}</Text>
         </View>
 
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <Text
             style={{ color: themeColors.text }}
             className='font-semibold'
           >
             See All
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <ScrollView

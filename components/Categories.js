@@ -41,7 +41,7 @@ export default function Categories({ onCategorySelect }) {
                 className={'p-1 rounded-full shadow-md bg-gray-200 ' + btnClass}
               >
                 <Image
-                  style={{ width: 50, height: 50 }}
+                  style={{ width: 45, height: 45 }}
                   // source={category.image}
                   source={{ uri: urlFor(category.image).url() }}
                 />
