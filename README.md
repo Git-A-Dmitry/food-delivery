@@ -25,6 +25,7 @@ The menu items are managed and updated through the Sanity Studio.
 - React Navigation
 - React Native Maps
 - React Native Feather
+- Redux Toolkit
 - Sanity
 - Tailwind
 - NativeWind
